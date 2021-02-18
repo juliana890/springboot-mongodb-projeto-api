@@ -2,12 +2,18 @@ package com.aulaspring.projetoapirestful.domain;
 
 import java.io.Serializable;
 
-//Fazemos o Serializable para os dados serem convertidos em bytes e serem possíveis a trafegação em rede
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
 
+//Fazemos o Serializable para os dados serem convertidos em bytes e serem possíveis a trafegação em rede
+//Para informar que essa classe faz parte de uma coleção no MongoDB utilizamos as seguintes notations
+//@Document(collection = "user"), para informar qo nome da coleção no MongoDB, se não ele pega o próprio nome da classe com letra min
+@Document(collection = "user")
 public class User implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 	
+	@Id
 	private String id;
 	private String name;
 	private String email;
