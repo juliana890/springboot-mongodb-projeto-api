@@ -34,6 +34,11 @@ public class UserService {
 		return repo.insert(obj);
 	}
 	
+	public void delete(String id) {
+		findById(id);
+		repo.deleteById(id);
+	}
+	
 	//Método que irá instânciar um User a partir do UserDTO
 	//Fizemos na classe de serviço devido a facilidade de manutenção pois já temos os parâmetros de conexão com o BD
 	public User fromDTO(UserDTO objDto) {
