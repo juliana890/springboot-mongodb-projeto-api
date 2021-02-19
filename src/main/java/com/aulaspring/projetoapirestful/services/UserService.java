@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.aulaspring.projetoapirestful.domain.User;
+import com.aulaspring.projetoapirestful.dto.UserDTO;
 import com.aulaspring.projetoapirestful.repositories.UserRepository;
 import com.aulaspring.projetoapirestful.services.exception.ObjectNotFoundException;
 
@@ -27,5 +28,15 @@ public class UserService {
 		
 		return obj.orElseThrow(() -> new ObjectNotFoundException("Objeto não encontrado"));
 		
+	}
+	
+	public User insert(User obj) {
+		return repo.insert(obj);
+	}
+	
+	//Método que irá instânciar um User a partir do UserDTO
+	//Fizemos na classe de serviço devido a facilidade de manutenção pois já temos os parâmetros de conexão com o BD
+	public User fromDTO(UserDTO objDto) {
+		return new User(objDto.getId(), objDto.getName(), objDto.getEmail());
 	}
 }
