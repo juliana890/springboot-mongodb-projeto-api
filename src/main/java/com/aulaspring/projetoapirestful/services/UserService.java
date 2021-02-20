@@ -39,9 +39,21 @@ public class UserService {
 		repo.deleteById(id);
 	}
 	
+	public User update(User obj) {
+		//Precisamos instanciar um novo User
+		User newObj = repo.findById(obj.getId()).get();
+		updateData(newObj, obj);
+		return repo.save(newObj);
+	}
+	
 	//Método que irá instânciar um User a partir do UserDTO
 	//Fizemos na classe de serviço devido a facilidade de manutenção pois já temos os parâmetros de conexão com o BD
 	public User fromDTO(UserDTO objDto) {
 		return new User(objDto.getId(), objDto.getName(), objDto.getEmail());
+	}
+	
+	private void updateData(User newObj, User obj) {
+		newObj.setName(obj.getName());
+		newObj.setEmail(obj.getEmail());
 	}
 }
