@@ -1,8 +1,11 @@
 package com.aulaspring.projetoapirestful.domain;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
 import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 //Fazemos o Serializable para os dados serem convertidos em bytes e serem possíveis a trafegação em rede
@@ -18,6 +21,10 @@ public class User implements Serializable {
 	private String name;
 	private String email;
 	
+	//Notation de referência para os posts criados pelos usuários
+	@DBRef(lazy = true) //garantia de que os posts só serão carregados se forem acessados
+	private List<Post> posts = new ArrayList<>();
+
 	public User() {}
 
 	public User(String id, String name, String email) {
@@ -51,6 +58,14 @@ public class User implements Serializable {
 		this.email = email;
 	}
 
+	public List<Post> getPosts() {
+		return posts;
+	}
+
+	public void setPosts(List<Post> posts) {
+		this.posts = posts;
+	}
+	
 	@Override
 	public int hashCode() {
 		final int prime = 31;
